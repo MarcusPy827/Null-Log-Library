@@ -33,6 +33,7 @@ class MainWindow : public QWidget {
 
     private slots:
         void generateLog();
+        void toggleColor();
 };
 
 

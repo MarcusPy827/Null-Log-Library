@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     configLayout->addWidget(contentEdit, 2, 1);
 
     auto * logLevelDesc = new QLabel(this);
-    logLevelDesc->setText("logLevel · 内容: ");
+    logLevelDesc->setText("logLevel · 日志等级: ");
     configLayout->addWidget(logLevelDesc, 3, 0);
 
     logLevelEdit = new QComboBox(this);
@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     useColor = new QCheckBox(this);
     useColor->setText("Colored output · 彩色输出");
     useColor->setCheckState(Qt::CheckState::Checked);
+    connect(useColor, SIGNAL(toggled(bool)), this, SLOT(toggleColor()));
     buttonLayout->addWidget(useColor);
 
     auto * widgetSpacerH = new QSpacerItem(16, 16, QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -80,7 +81,33 @@ void MainWindow::generateLog() {
     QString tag = tagEdit->text();
     QString title = titleEdit->text();
     QString content = contentEdit->text();
+    QString logLevel = logLevelEdit->currentText().toLower();
 
-    if(title.isEmpty()) NullLog::info(tag, content);
-    else NullLog::info(tag, title, content);
+    if(logLevel == "info") {
+        if(title.isEmpty()) NullLog::info(tag, content);
+        else NullLog::info(tag, title, content);
+    }
+
+    else if(logLevel == "ok") {
+        if(title.isEmpty()) NullLog::ok(tag, content);
+        else NullLog::ok(tag, title, content);
+    }
+
+    else if(logLevel == "warning") {
+        if(title.isEmpty()) NullLog::warn(tag, content);
+        else NullLog::warn(tag, title, content);
+    }
+
+    else if(logLevel == "error") {
+        if(title.isEmpty()) NullLog::error(tag, content);
+        else NullLog::error(tag, title, content);
+    }
+
+    else NullLog::error("Null Log Library Demo", "Unknown log level, log will not be generated · 未知日志等级，将不会生成日志");
+}
+
+void MainWindow::toggleColor() {
+    NullLog::setIsColorEnabled(useColor->isChecked());
+    if(useColor->isChecked()) NullLog::info("NULL Log Demo", "Colored log output is enabled · 彩色日志输出已开启");
+    else NullLog::info("NULL Log Library Demo", "Colored log output is disabled · 彩色日志输出已关闭");
 }

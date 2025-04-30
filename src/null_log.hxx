@@ -1,0 +1,8 @@
+#ifndef NULL_LOG_LIBRARY_NULL_LOG_HXX
+#define NULL_LOG_LIBRARY_NULL_LOG_HXX
+
+class NullLog {
+
+};
+
+#endif //NULL_LOG_LIBRARY_NULL_LOG_HXX

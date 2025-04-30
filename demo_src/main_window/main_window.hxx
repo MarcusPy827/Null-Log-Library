@@ -24,14 +24,15 @@ class MainWindow : public QWidget {
         ~MainWindow() = default;
 
     private:
-    QLineEdit * tagEdit;
-    QLineEdit * titleEdit;
-    QLineEdit * subTitleEdit;
-    QLineEdit * contentEdit;
-    QComboBox * logLevelEdit;
-    QTextEdit * logViewer;
-    QCheckBox * useColor;
-    QPushButton * generateLogBtn;
+        QLineEdit * tagEdit;
+        QLineEdit * titleEdit;
+        QLineEdit * contentEdit;
+        QComboBox * logLevelEdit;
+        QCheckBox * useColor;
+        QPushButton * generateLogBtn;
+
+    private slots:
+        void generateLog();
 };
 
 

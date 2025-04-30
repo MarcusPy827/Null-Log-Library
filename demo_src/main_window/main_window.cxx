@@ -27,25 +27,17 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     titleEdit->setText("Default title(示例标题)");
     configLayout->addWidget(titleEdit, 1, 1);
 
-    auto * subTitleDesc = new QLabel(this);
-    subTitleDesc->setText("Subtitle · 副标题: ");
-    configLayout->addWidget(subTitleDesc, 2, 0);
-
-    subTitleEdit = new QLineEdit(this);
-    subTitleEdit->setText("Default subtitle(示例副标题)");
-    configLayout->addWidget(subTitleEdit, 2, 1);
-
     auto * contentDesc = new QLabel(this);
     contentDesc->setText("Content · 内容: ");
-    configLayout->addWidget(contentDesc, 3, 0);
+    configLayout->addWidget(contentDesc, 2, 0);
 
     contentEdit = new QLineEdit(this);
     contentEdit->setText("Default content(示例内容)");
-    configLayout->addWidget(contentEdit, 3, 1);
+    configLayout->addWidget(contentEdit, 2, 1);
 
     auto * logLevelDesc = new QLabel(this);
     logLevelDesc->setText("logLevel · 内容: ");
-    configLayout->addWidget(logLevelDesc, 4, 0);
+    configLayout->addWidget(logLevelDesc, 3, 0);
 
     logLevelEdit = new QComboBox(this);
     logLevelEdit->addItem("Info");
@@ -53,19 +45,14 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     logLevelEdit->addItem("Warning");
     logLevelEdit->addItem("Error");
     logLevelEdit->setCurrentText("Info");
-    configLayout->addWidget(logLevelEdit, 4, 1);
+    configLayout->addWidget(logLevelEdit, 3, 1);
 
-    //auto * widgetSpacerV = new QSpacerItem(16, 16, QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //widgetLayout->addSpacerItem(widgetSpacerV);
+    auto * widgetSpacerV = new QSpacerItem(16, 16, QSizePolicy::Expanding, QSizePolicy::Expanding);
+    widgetLayout->addSpacerItem(widgetSpacerV);
 
     auto * instruction = new QLabel(this);
-    instruction->setText("Please check your IDE or terminal for log output.\n请检查您的IDE或者终端以获取日志");
+    instruction->setText("Please check your IDE or terminal for log output. Some IDEs (like CLion) may require extra steps to make colored output.\n请检查您的IDE或者终端以获取日志，某些IDE（比如CLion）可能需要额外设置以正确显示颜色");
     widgetLayout->addWidget(instruction);
-
-    logViewer = new QTextEdit(this);
-    logViewer->setAcceptRichText(true);
-    logViewer->setReadOnly(true);
-    widgetLayout->addWidget(logViewer);
 
     auto * buttonLayout = new QHBoxLayout(this);
     buttonLayout->setContentsMargins(0, 0, 0, 0);
@@ -82,8 +69,18 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     generateLogBtn = new QPushButton(this);
     generateLogBtn->setText("Generate log · 生成日志");
+    connect(generateLogBtn, SIGNAL(clicked(bool)), this, SLOT(generateLog()));
     buttonLayout->addWidget(generateLogBtn);
 
     this->setWindowTitle("Null Log Library Demo");
     this->resize(400, 300);
+}
+
+void MainWindow::generateLog() {
+    QString tag = tagEdit->text();
+    QString title = titleEdit->text();
+    QString content = contentEdit->text();
+
+    if(title.isEmpty()) NullLog::info(tag, content);
+    else NullLog::info(tag, title, content);
 }

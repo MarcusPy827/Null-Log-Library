@@ -3,7 +3,12 @@
 
 #include "QString"
 #include "QDebug"
+#include "iostream"
 #include "null_log_export.hxx"
+
+#define COLOR_BLUE_BOLD "\033[34;1m"
+#define COLOR_UNDERLINE "\x1b[39;4m"
+#define COLOR_RESET "\033[0m"
 
 class NULL_LOG_UTIL NullLog {
     public:
@@ -11,7 +16,7 @@ class NULL_LOG_UTIL NullLog {
         static bool getIsColorEnabled(void);
 
         static QString info(const QString& tag, const QString& content);
-        static QString info(QString tag, QString title, QString content);
+        static QString info(const QString& tag, const QString& title, const QString& content);
         static QString info(QString tag, QString title, QString subtitle, QString content);
 
     private:

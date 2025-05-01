@@ -18,14 +18,14 @@ class NULL_LOG_UTIL NullLog {
         static void setIsColorEnabled(bool result);
         static bool getIsColorEnabled(void);
 
-    static QString info(const QString& tag, const QString& content);
-    static QString info(const QString& tag, const QString& title, const QString& content);
-    static QString ok(const QString& tag, const QString& content);
-    static QString ok(const QString& tag, const QString& title, const QString& content);
-    static QString warn(const QString& tag, const QString& content);
-    static QString warn(const QString& tag, const QString& title, const QString& content);
-    static QString error(const QString& tag, const QString& content);
-    static QString error(const QString& tag, const QString& title, const QString& content);
+        static QString info(const QString& tag, const QString& content);
+        static QString info(const QString& tag, const QString& title, const QString& content);
+        static QString ok(const QString& tag, const QString& content);
+        static QString ok(const QString& tag, const QString& title, const QString& content);
+        static QString warn(const QString& tag, const QString& content);
+        static QString warn(const QString& tag, const QString& title, const QString& content);
+        static QString error(const QString& tag, const QString& content);
+        static QString error(const QString& tag, const QString& title, const QString& content);
 
     private:
         static bool isColorEnabled;
